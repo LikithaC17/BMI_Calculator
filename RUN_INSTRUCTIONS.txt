@@ -1,0 +1,72 @@
+BMI Calculator — How to run the project (Windows)
+
+Prerequisites:
+- Python 3.8+ installed and on PATH
+- (Optional) Git to clone the repo
+
+1) Open a terminal in the project folder
+   Example (PowerShell):
+   ```powershell
+   cd "C:\Users\LIKITHA\OneDrive\Desktop\BMI Calculator"
+   ```
+
+2) Create a virtual environment (if one does not already exist)
+   ```powershell
+   python -m venv .venv
+   ```
+
+3) Activate the virtual environment
+   - PowerShell:
+   ```powershell
+   (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& ".venv\Scripts\Activate.ps1")
+   ```
+   - Command Prompt (cmd.exe):
+   ```cmd
+   .venv\Scripts\activate.bat
+   ```
+
+4) Install dependencies
+   If the project has a `requirements.txt` file, run:
+   ```powershell
+   pip install -r requirements.txt
+   ```
+   If there is no `requirements.txt`, install Flask directly:
+   ```powershell
+   pip install Flask
+   ```
+
+5) Initialize or run the app
+   The app auto-creates the SQLite DB on first run. Start the development server:
+   ```powershell
+   python app.py
+   ```
+   You should see output like:
+   "* Running on http://127.0.0.1:5000"
+
+6) Open the app in a browser
+   - Open: http://127.0.0.1:5000
+   - Or run from PowerShell to automatically open the default browser:
+   ```powershell
+   Start-Process "http://127.0.0.1:5000"
+   ```
+
+7) Stop the server
+   - Press Ctrl+C in the terminal running the app.
+
+8) Database and data
+   - The app stores BMI records in `bmi_data.db` (SQLite) in the project folder.
+   - To inspect the DB quickly from Python:
+   ```python
+   import sqlite3
+   conn = sqlite3.connect('bmi_data.db')
+   rows = conn.execute('SELECT * FROM bmi_records ORDER BY id DESC LIMIT 10').fetchall()
+   print(rows)
+   conn.close()
+   ```
+
+9) Common troubleshooting
+   - If activation fails on PowerShell, run the `Set-ExecutionPolicy` command shown above.
+   - If `Flask` is missing, install it with `pip install Flask` inside the activated venv.
+   - If the port 5000 is already used, stop the other process or change the port in `app.py`.
+
+That's it — the app should be running and reachable at http://127.0.0.1:5000
